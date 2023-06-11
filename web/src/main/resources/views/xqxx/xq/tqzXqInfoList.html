@@ -1,0 +1,159 @@
+<% layout('/layouts/default.html', {title: '小区信息管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-notebook"></i> ${text('小区信息管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('xq:tqzXqInfo:edit')){ %>
+					<a href="${ctx}/xq/tqzXqInfo/form" class="btn btn-default btnTool" title="${text('新增小区信息')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+				<a href="#" class="btn btn-default" id="btnSetting" title="${text('设置')}"><i class="fa fa-navicon"></i></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${tqzXqInfo}" action="${ctx}/xq/tqzXqInfo/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('小区名称')}：</label>
+					<div class="control-inline">
+						<#form:input path="name" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('建成年代')}：</label>
+					<div class="control-inline">
+						<#form:input path="jcnd" maxlength="32" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('位置')}：</label>
+					<div class="control-inline">
+						<#form:input path="address" maxlength="512" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('楼栋数量')}：</label>
+					<div class="control-inline">
+						<#form:input path="ldsl" maxlength="32" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('物业费')}：</label>
+					<div class="control-inline">
+						<#form:input path="wyf" maxlength="32" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('医院信息')}：</label>
+					<div class="control-inline">
+						<#form:input path="yyxx" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('学校信息')}：</label>
+					<div class="control-inline">
+						<#form:input path="xxxx" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('菜市场')}：</label>
+					<div class="control-inline">
+						<#form:input path="csc" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('地铁')}：</label>
+					<div class="control-inline">
+						<#form:input path="dtxx" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('商超')}：</label>
+					<div class="control-inline">
+						<#form:input path="scxx" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('开发商')}：</label>
+					<div class="control-inline">
+						<#form:input path="kfs" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('完工时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="wgsj" maxlength="32" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('备注')}：</label>
+					<div class="control-inline">
+						<#form:input path="remark" maxlength="512" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('更新时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="updateTime" readonly="true" maxlength="20" class="form-control laydate width-datetime"
+							dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('录入时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="createTime" readonly="true" maxlength="20" class="form-control laydate width-datetime"
+							dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm isQuick">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("小区名称")}', name:'name', index:'a.name', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/xq/tqzXqInfo/form?id='+row.id+'" class="btnList" data-title="${text("编辑小区信息")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("建成年代")}', name:'jcnd', index:'a.jcnd', width:150, align:"left"},
+		{header:'${text("位置")}', name:'address', index:'a.address', width:150, align:"left"},
+		{header:'${text("楼栋数量")}', name:'ldsl', index:'a.ldsl', width:150, align:"left"},
+		{header:'${text("物业费")}', name:'wyf', index:'a.wyf', width:150, align:"left"},
+		{header:'${text("医院信息")}', name:'yyxx', index:'a.yyxx', width:150, align:"left"},
+		{header:'${text("学校信息")}', name:'xxxx', index:'a.xxxx', width:150, align:"left"},
+		{header:'${text("菜市场")}', name:'csc', index:'a.csc', width:150, align:"left"},
+		// {header:'${text("地铁")}', name:'dtxx', index:'a.dtxx', width:150, align:"left"},
+		// {header:'${text("商超")}', name:'scxx', index:'a.scxx', width:150, align:"left"},
+		// {header:'${text("开发商")}', name:'kfs', index:'a.kfs', width:150, align:"left"},
+		// {header:'${text("完工时间")}', name:'wgsj', index:'a.wgsj', width:150, align:"left"},
+		// {header:'${text("备注")}', name:'remark', index:'a.remark', width:150, align:"left"},
+		// {header:'${text("更新时间")}', name:'updateTime', index:'a.update_time', width:150, align:"center"},
+		{header:'${text("录入时间")}', name:'createTime', index:'a.create_time', width:150, align:"center"},
+		{header:'${text("操作")}', name:'actions', width:120, formatter: function(val, obj, row, act){
+			var actions = [];
+			//<% if(hasPermi('xq:tqzXqInfo:edit')){ %>
+				actions.push('<a href="${ctx}/xq/tqzXqInfo/view?id='+row.id+'" class="btnList" title="${text("查看小区信息")}"><i class="fa fa-street-view"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/xq/tqzXqInfo/form?id='+row.id+'" class="btnList" title="${text("编辑小区信息")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/xq/tqzXqInfo/delete?id='+row.id+'" class="btnList" title="${text("删除小区信息")}" data-confirm="${text("确认要删除该小区信息吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			//<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

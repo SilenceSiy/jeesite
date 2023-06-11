@@ -1,0 +1,110 @@
+<% layout('/layouts/default.html', {title: '态势感知-亚运热点-热点话题排行榜管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-notebook"></i> ${text('态势感知-亚运热点-热点话题排行榜管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('rdht:viewYyrdRdhtphb:edit')){ %>
+					<a href="${ctx}/rdht/viewYyrdRdhtphb/form" class="btn btn-default btnTool" title="${text('新增态势感知-亚运热点-热点话题排行榜')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+				<a href="#" class="btn btn-default" id="btnSetting" title="${text('设置')}"><i class="fa fa-navicon"></i></a>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${viewYyrdRdhtphb}" action="${ctx}/rdht/viewYyrdRdhtphb/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('来源')}：</label>
+					<div class="control-inline">
+						<#form:input path="ly" maxlength="100" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('类型')}：</label>
+					<div class="control-inline">
+						<#form:input path="lx" maxlength="32" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('发布时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="fbsj" readonly="true" maxlength="20" class="form-control laydate width-datetime"
+							dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('标签')}：</label>
+					<div class="control-inline">
+						<#form:input path="bq" maxlength="32" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('创建时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="createtime" readonly="true" maxlength="20" class="form-control laydate width-datetime"
+							dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('图片')}：</label>
+					<div class="control-inline">
+						<#form:input path="url" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('更新时间')}：</label>
+					<div class="control-inline">
+						<#form:input path="updatetime" readonly="true" maxlength="20" class="form-control laydate width-datetime"
+							dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('内容')}：</label>
+					<div class="control-inline">
+						<#form:input path="content" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm isQuick">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("来源")}', name:'ly', index:'a.ly', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/rdht/viewYyrdRdhtphb/form?id='+row.id+'" class="btnList" data-title="${text("编辑态势感知-亚运热点-热点话题排行榜")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("类型")}', name:'lx', index:'a.lx', width:150, align:"left"},
+		{header:'${text("发布时间")}', name:'fbsj', index:'a.fbsj', width:150, align:"center"},
+		{header:'${text("标签")}', name:'bq', index:'a.bq', width:150, align:"left"},
+		{header:'${text("创建时间")}', name:'createtime', index:'a.createtime', width:150, align:"center"},
+		{header:'${text("图片")}', name:'url', index:'a.url', width:150, align:"left"},
+		{header:'${text("更新时间")}', name:'updatetime', index:'a.updatetime', width:150, align:"center"},
+		{header:'${text("内容")}', name:'content', index:'a.content', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, formatter: function(val, obj, row, act){
+			var actions = [];
+			//<% if(hasPermi('rdht:viewYyrdRdhtphb:edit')){ %>
+				actions.push('<a href="${ctx}/rdht/viewYyrdRdhtphb/form?id='+row.id+'" class="btnList" title="${text("编辑态势感知-亚运热点-热点话题排行榜")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/rdht/viewYyrdRdhtphb/delete?id='+row.id+'" class="btnList" title="${text("删除态势感知-亚运热点-热点话题排行榜")}" data-confirm="${text("确认要删除该态势感知-亚运热点-热点话题排行榜吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			//<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

@@ -1,0 +1,340 @@
+<% layout('/layouts/default.html', {title: '小区信息管理', libs: ['validate','fileupload','dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa icon-note"></i> ${text(tqzXqInfo.isNewRecord ? '新增小区信息' : '编辑小区信息')}
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+		<#form:form id="inputForm" model="${tqzXqInfo}" action="${ctx}/xq/tqzXqInfo/save" method="post" class="form-horizontal">
+			<div class="box-body">
+				<div class="form-unit">${text('基本信息')}</div>
+				<#form:hidden path="id"/>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('小区名称')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="name" maxlength="64" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('建成年代')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="jcnd" maxlength="32" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('位置')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="address" maxlength="512" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('楼栋数量')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="ldsl" maxlength="32" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('物业费')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wyf" maxlength="32" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('医院信息')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="yyxx" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('学校信息')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="xxxx" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('菜市场')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="csc" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('地铁')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="dtxx" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('商超')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="scxx" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('开发商')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="kfs" maxlength="255" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('完工时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="wgsj" maxlength="32" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('备注')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="remark" maxlength="512" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('更新时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="updateTime" readonly="true" maxlength="20" class="form-control laydate"
+									dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('录入时间')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="createTime" readonly="true" maxlength="20" class="form-control laydate"
+									dataFormat="datetime" data-type="datetime" data-format="yyyy-MM-dd HH:mm"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<span class="required hide">*</span> ${text('图片上传')}：</label>
+							<div class="col-sm-10">
+								<#form:fileupload id="uploadImage" bizKey="${tqzXqInfo.id}" bizType="tqzXqInfo_image"
+									uploadType="image" class="" readonly="false" preview="true"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h4 class="form-unit">${text('小区户型')}</h4>
+				<div class="ml10 mr10 table-form">
+					<table id="tqzXqHxDataGrid"></table>
+					<% if (hasPermi('xq:tqzXqInfo:edit')){ %>
+						<a href="#" id="tqzXqHxDataGridAddRowBtn" class="btn btn-primary btn-sm mt10 mb10"><i class="fa fa-plus"></i> ${text('增行')}</a>
+					<% } %>
+				</div>
+				<h4 class="form-unit">${text('楼栋信息')}</h4>
+				<div class="ml10 mr10 table-form">
+					<table id="tqzXqLdDataGrid"></table>
+					<% if (hasPermi('xq:tqzXqInfo:edit')){ %>
+						<a href="#" id="tqzXqLdDataGridAddRowBtn" class="btn btn-primary btn-sm mt10 mb10"><i class="fa fa-plus"></i> ${text('增行')}</a>
+					<% } %>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<% if (hasPermi('xq:tqzXqInfo:edit')){ %>
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+						<% } %>
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+					</div>
+				</div>
+			</div>
+		</#form:form>
+	</div>
+</div>
+<% } %>
+<script>
+//初始化小区户型DataGrid对象
+$("#tqzXqHxDataGrid").dataGrid({
+
+	data: ${toJson(tqzXqInfo.tqzXqHxList)},
+	datatype: "local", // 设置本地数据
+	autoGridHeight: function(){return 'auto'}, // 设置自动高度
+	
+	// 设置数据表格列
+	columnModel: [
+		{header:'状态', name:'status', editable:true, hidden:true},
+		{header:'主键', name:'id', editable:true, hidden:true},
+		{header:'${text("小区id")}', name:'xqId.id', editable:true, hidden:true},
+		{header:'${text("小区名称")}', name:'xqName', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("户型")}', name:'hx', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'255', 'class':'form-control'}},
+		{header:'${text("面积")}', name:'area', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("录入时间")}', name:'createTime', width:150, 
+			formatter:'date', formatoptions:{srcformat:'Y-m-d H:i:s',newformat:'Y-m-d H:i:s'},
+			editable:true, edittype:'text', editoptions:{'class':'form-control laydate', 'readonly':'true',
+				dataInit: function(element){
+					laydate.render({elem:element, type:'datetime', format:'yyyy-MM-dd HH:mm'});
+				}
+			}
+		},
+		// {header:'${text("更新时间")}', name:'updateTime', width:150,
+		// 	formatter:'date', formatoptions:{srcformat:'Y-m-d H:i:s',newformat:'Y-m-d H:i:s'},
+		// 	editable:true, edittype:'text', editoptions:{'class':'form-control laydate', 'readonly':'true',
+		// 		dataInit: function(element){
+		// 			laydate.render({elem:element, type:'datetime', format:'yyyy-MM-dd HH:mm'});
+		// 		}
+		// 	}
+		// },
+		{header:'${text("操作")}', name:'actions', width:80, align:'center', formatter: function(val, obj, row, act){
+			var actions = [];
+			if (val == 'new'){
+				actions.push('<a href="#" onclick="js.confirm(\'${text("你确认要删除这条数据吗？")}\', function(){$(\'#tqzXqHxDataGrid\').dataGrid(\'delRowData\',\''+obj.rowId+'\')});return false;"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			}else{
+				actions.push('<a href="#" onclick="js.confirm(\'${text("你确认要删除这条数据吗？")}\', function(){$(\'#tqzXqHxDataGrid\').dataGrid(\'setRowData\',\''+obj.rowId+'\',null,{display:\'none\'});$(\'#'+obj.rowId+'_status\').val(\''+Global.STATUS_DELETE+'\');});return false;"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			}
+			return actions.join('');
+		}, editoptions: {defaultValue: 'new'}}
+	],
+	
+	// 编辑表格参数
+	editGrid: true,				// 是否是编辑表格
+	editGridInitRowNum: 1,		// 编辑表格的初始化新增行数
+	editGridAddRowBtn: $('#tqzXqHxDataGridAddRowBtn'),	// 子表增行按钮
+	editGridAddRowBtnToHeader: true,	// 子表增行按钮是否显示到表头上
+	editGridAddRowInitData: {id: '', status: Global.STATUS_NORMAL},	// 新增行的时候初始化的数据
+	
+	// 编辑表格的提交数据参数
+	editGridInputFormListName: 'tqzXqHxList', // 提交的数据列表名
+	editGridInputFormListAttrs: 'status,id,xqId.id,xqName,hx,area,createTime,updateTime,', // 提交数据列表的属性字段
+	
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+//初始化楼栋信息DataGrid对象
+$("#tqzXqLdDataGrid").dataGrid({
+
+	data: ${toJson(tqzXqInfo.tqzXqLdList)},
+	datatype: "local", // 设置本地数据
+	autoGridHeight: function(){return 'auto'}, // 设置自动高度
+	
+	// 设置数据表格列
+	columnModel: [
+		{header:'状态', name:'status', editable:true, hidden:true},
+		{header:'主键', name:'id', editable:true, hidden:true},
+		{header:'${text("xq_id")}', name:'xqId.id', editable:true, hidden:true},
+		{header:'${text("小区名称")}', name:'xqName', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("楼栋名称")}', name:'ldName', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("楼栋编号")}', name:'ldCode', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'64', 'class':'form-control'}},
+		{header:'${text("建筑面积")}', name:'jzmj', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'32', 'class':'form-control'}},
+		{header:'${text("单元数")}', name:'dys', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'9', 'class':'form-control digits'}},
+		{header:'${text("楼层数")}', name:'lcs', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'9', 'class':'form-control digits'}},
+		{header:'${text("户数")}', name:'hs', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'9', 'class':'form-control digits'}},
+		{header:'${text("楼栋用途")}', name:'ldyt', width:100, 
+			editable:true, edittype:'select', editoptions:{'class':'form-control',
+				items: $.merge([{dictLabel:'&nbsp;',dictValue:''}], ${@DictUtils.getDictListJson('tqz_ld_use')}),
+				itemLabel: 'dictLabel', itemValue: 'dictValue', dataInit: function(element){
+					js.select2(element).on("change",function(){$(this).resetValid()});
+				}
+			}
+		},
+		{header:'${text("楼栋类型")}', name:'ldlx', width:100, 
+			editable:true, edittype:'select', editoptions:{'class':'form-control',
+				items: $.merge([{dictLabel:'&nbsp;',dictValue:''}], ${@DictUtils.getDictListJson('tqz_ld_type')}),
+				itemLabel: 'dictLabel', itemValue: 'dictValue', dataInit: function(element){
+					js.select2(element).on("change",function(){$(this).resetValid()});
+				}
+			}
+		},
+		{header:'${text("电梯情况")}', name:'dtqk', width:100, 
+			editable:true, edittype:'radio', editoptions:{'class':'form-control icheck',
+				items: $.merge([], ${@DictUtils.getDictListJson('tqz_ld_dt')}),
+				itemLabel: 'dictLabel', itemValue: 'dictValue', dataInit: function(element){
+					js.iCheck(element).on("ifChanged",function(){$(this).resetValid()});
+				}
+			}
+		},
+		{header:'${text("备注")}', name:'remark', width:150, editable:true, edittype:'text', editoptions:{'maxlength':'255', 'class':'form-control'}},
+		{header:'${text("操作")}', name:'actions', width:80, align:'center', formatter: function(val, obj, row, act){
+			var actions = [];
+			if (val == 'new'){
+				actions.push('<a href="#" onclick="js.confirm(\'${text("你确认要删除这条数据吗？")}\', function(){$(\'#tqzXqLdDataGrid\').dataGrid(\'delRowData\',\''+obj.rowId+'\')});return false;"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			}else{
+				actions.push('<a href="#" onclick="js.confirm(\'${text("你确认要删除这条数据吗？")}\', function(){$(\'#tqzXqLdDataGrid\').dataGrid(\'setRowData\',\''+obj.rowId+'\',null,{display:\'none\'});$(\'#'+obj.rowId+'_status\').val(\''+Global.STATUS_DELETE+'\');});return false;"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			}
+			return actions.join('');
+		}, editoptions: {defaultValue: 'new'}}
+	],
+	
+	// 编辑表格参数
+	editGrid: true,				// 是否是编辑表格
+	editGridInitRowNum: 1,		// 编辑表格的初始化新增行数
+	editGridAddRowBtn: $('#tqzXqLdDataGridAddRowBtn'),	// 子表增行按钮
+	editGridAddRowBtnToHeader: true,	// 子表增行按钮是否显示到表头上
+	editGridAddRowInitData: {id: '', status: Global.STATUS_NORMAL},	// 新增行的时候初始化的数据
+	
+	// 编辑表格的提交数据参数
+	editGridInputFormListName: 'tqzXqLdList', // 提交的数据列表名
+	editGridInputFormListAttrs: 'status,id,xqId.id,xqName,ldName,ldCode,jzmj,dys,lcs,hs,ldyt,ldlx,dtqk,remark,', // 提交数据列表的属性字段
+	
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == Global.TRUE){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+</script>
